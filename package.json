@@ -1,0 +1,35 @@
+{
+  "fitbit": {
+    "appUUID": "9830f043-b9aa-4400-bd5d-618e9d96e25b",
+    "appType": "app",
+    "appDisplayName": "Norwegian Transport",
+    "iconFile": "resources/icon.png",
+    "wipeColor": "#e91e63",
+    "requestedPermissions": [
+      "access_internet",
+      "access_location"
+    ],
+    "buildTargets": [
+      "higgs",
+      "meson"
+    ],
+    "i18n": {
+      "en": {
+        "name": "Norwegian Transport"
+      },
+      "de": {
+        "name": "Norwegian Transport"
+      }
+    }
+  },
+  "devDependencies": {
+    "@fitbit/sdk": "~1.0.0",
+    "@fitbit/sdk-cli": "^1.0.0"
+  },
+  "scripts": {
+    "build": "fitbit-build"
+  },
+  "dependencies": {
+    "graphql-fitbit": "^1.0.6"
+  }
+}
