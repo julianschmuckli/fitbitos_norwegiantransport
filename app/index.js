@@ -3,6 +3,7 @@ import * as messaging from "messaging";
 import { vibration } from "haptics";
 import { geolocation } from "geolocation";
 import { locale } from "user-settings";
+import { __ } from  'fitbit-i18n'
 
 console.log("App Started");
 
@@ -46,7 +47,7 @@ let time_four__time = document.getElementById("time_four-time");
 
 let distance_between_time_and_details = time_four__time.x;
 
-translateScreen("Lädt...", "", "Loading...", "");
+translateScreen(__("LOADING"), "");
 scrollview.height = 150;
 
 messaging.peerSocket.onopen = function() {
@@ -60,7 +61,7 @@ messaging.peerSocket.onerror = function(err) {
   console.log("Connection error: " + err.code + " - " + err.message);
 }
 
-function getStations() {  
+function getStations() {
   translateScreen("Bitte warten...", "Station in deiner Nähe wird abgefragt...\n\nBitte habe etwas Geduld.", "Please wait...", "Retrieving the timetable of a station near you. Please have patience.");
   scrollview.height = 150;
 }
@@ -70,12 +71,16 @@ messaging.peerSocket.onmessage = function(evt) {
   if (evt.data!=undefined) {
     message_received = true;
     if(evt.data.error){
-      if(evt.data.message=="no_location"){        
+      if(evt.data.message=="no_location"){
         translateScreen("Kein Standort", "Möglicherweise ist dein Standort auf deinem Smartphone deaktiviert oder nicht empfangbar.",
                         "No location", "Perhaps the GPS on your smartphone is deactivated.");
-        
-        scrollview.height = 150;
+
+      }else if (evt.data.message == "nothing_found") {
+        translateScreen("Nichts gefunden", "Es wurden keine Stationen in deiner Nähe gefunden.",
+                        "No location", "Perhaps the GPS on your smartphone is deactivated.");
       }
+
+      scrollview.height = 150;
     }else{
       data = evt.data;
 
@@ -87,28 +92,28 @@ messaging.peerSocket.onmessage = function(evt) {
       name.onclick = function(e){
         changeTimeDisplay();
       }
-      
+
       //Reset screen
       stationboard.style.display = "none";
-      
+
       time_one__background_number.style.display = "none";
       time_one__number.style.display = "none";
       time_one__destination.style.display = "none";
       time_one__platform.style.display = "none";
       time_one__time.style.display = "none";
-      
+
       time_two__background_number.style.display = "none";
       time_two__number.style.display = "none";
       time_two__destination.style.display = "none";
       time_two__platform.style.display = "none";
       time_two__time.style.display = "none";
-      
+
       time_three__background_number.style.display = "none";
       time_three__number.style.display = "none";
       time_three__destination.style.display = "none";
       time_three__platform.style.display = "none";
       time_three__time.style.display = "none";
-      
+
       time_four__background_number.style.display = "none";
       time_four__number.style.display = "none";
       time_four__destination.style.display = "none";
@@ -146,72 +151,72 @@ messaging.peerSocket.onmessage = function(evt) {
           time_four__time.style.display = "inline";
         }
       }
-      
+
       /* Time 1 */
       var colors = getColors(evt.data.operators[0], evt.data.number[0]);
-      
+
       time_one__number.style.fill = colors.line_color_font;
       time_one__background_number.style.fill = colors.line_color;
-      
+
       time_one__number.text = evt.data.number[0];
-      
+
       time_one__destination.text = evt.data.to[0];
       time_one__time.text = getTime(evt.data.departures[0])
-      
-      
+
+
       /* Time 2 */
-      
+
       var colors = getColors(evt.data.operators[1], evt.data.number[1]);
-      
+
       time_two__number.style.fill = colors.line_color_font;
       time_two__background_number.style.fill = colors.line_color;
-      
+
       time_two__number.text = evt.data.number[1];
-      
+
       time_two__destination.text = evt.data.to[1];
       time_two__time.text = getTime(evt.data.departures[1])
 
-      
+
       /* Time 3 */
-      
+
       var colors = getColors(evt.data.operators[2], evt.data.number[2]);
-      
+
       time_three__number.style.fill = colors.line_color_font;
       time_three__background_number.style.fill = colors.line_color;
-      
+
       time_three__number.text = evt.data.number[2];
-      
+
       time_three__destination.text = evt.data.to[2];
       time_three__time.text = getTime(evt.data.departures[2])
-      
+
       /* Time 4 */
-      
+
       var colors = getColors(evt.data.operators[3], evt.data.number[3]);
-      
+
       time_four__number.style.fill = colors.line_color_font;
       time_four__background_number.style.fill = colors.line_color;
-      
+
       time_four__number.text = evt.data.number[3];
-      
+
       time_four__destination.text = evt.data.to[3];
       time_four__time.text = getTime(evt.data.departures[3]);
 
       scrollview.height = 400;
       vibration.start("confirmation-max");
-      
+
       //Change station
       document.onkeypress = function(e) {
         if(e.key=="down"){
           if(index<=8){
-            translateScreen("Nächste Station...", "", "Next station...", "");
-            
+            translateScreen(__("NEXT_STATION") + "...", "");
+
             index++;
             messaging.peerSocket.send({key:"changeStationDown"});
           }
         }else if(e.key=="up"){
           if(index>1){
-            translateScreen("Vorherige Station...", "", "Previous station...", "");
-            
+            translateScreen(__("PREVIOUS_STATION") + "...");
+
             index--;
             messaging.peerSocket.send({key:"changeStationUp"});
           }
@@ -221,18 +226,9 @@ messaging.peerSocket.onmessage = function(evt) {
   }
 }
 
-function translateScreen(name_text_de, content_text_de, name_text_en, content_text_en){
-  switch(language){
-    case 'de-de':
-    case 'de-DE':
-      name.text = name_text_de;
-      stationboard.text = content_text_de;
-      break;
-    default:
-      name.text = name_text_en;
-      stationboard.text = content_text_en;
-      break;
-  }
+function translateScreen(name_text, content_text){
+    name.text = name_text;
+    stationboard.text = content_text;
 }
 
 function changeTimeDisplay(){
@@ -241,7 +237,7 @@ function changeTimeDisplay(){
     time_two__time.x = time_two__time.x - 10;
     time_three__time.x = time_three__time.x - 10;
     time_four__time.x = time_four__time.x - 10;
-    
+
     time_one__time.text = getMinutes(data.departures[0]);
     time_two__time.text = getMinutes(data.departures[1]);
     time_three__time.text = getMinutes(data.departures[2]);
@@ -252,7 +248,7 @@ function changeTimeDisplay(){
     time_two__time.x = distance_between_time_and_details;
     time_three__time.x = distance_between_time_and_details;
     time_four__time.x = distance_between_time_and_details;
-    
+
     time_one__time.text = getTime(data.departures[0]);
     time_two__time.text = getTime(data.departures[1]);
     time_three__time.text = getTime(data.departures[2]);
@@ -265,7 +261,7 @@ setTimeout(function(){
   if(!message_received){
     translateScreen("Keine Verbindung", "Zurzeit kann keine Verbindung mit dem Smartphone hergestellt werden.",
                     "No connection", "It seems that you don't have a connection to your phone.");
-    
+
     scrollview.height = 150;
     vibration.start("nudge-max");
   }
@@ -287,7 +283,7 @@ function getTime(timestamp){
 function getMinutes(timestamp){
   var current_time = new Date();
   var time = new Date(timestamp*1000);
-  
+
   var timeDiff = Math.abs(time.getTime() - current_time.getTime());
   var diffMinutes = Math.ceil(timeDiff / (1000 * 60));
   var diffHours = Math.ceil(timeDiff / (1000 * 60 * 60));
