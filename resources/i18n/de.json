@@ -1,5 +1,12 @@
 {
   "LOADING": "Lädt",
   "NEXT_STATION": "Nächste Station",
-  "PREVIOUS_STATION": "Vorherige Station"
+  "PREVIOUS_STATION": "Vorherige Station",
+  "FAILED_TRY_AGAIN": "Fehler. Erneut versuchen.",
+  "PLEASE_WAIT": "Bitte warten",
+  "STATION_NEAR_YOU": "Station in deiner Nähe wird abgefragt.",
+  "PLEASE_HAVE_PATIENCE": "Bitte habe etwas Geduld.",
+  "NO_LOCATION": "Kein Standort",
+  "NO_LOCATION_DESCRIPTION": "Möglicherweise ist dein Standort auf deinem Smartphone deaktiviert oder nicht empfangbar.",
+  
 }

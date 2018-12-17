@@ -57,12 +57,12 @@ messaging.peerSocket.onopen = function() {
 
 messaging.peerSocket.onerror = function(err) {
   // Handle any errors
-  stationboard.text = "Fehler. Erneut versuchen."
+  stationboard.text = __("FAILED_TRY_AGAIN");
   console.log("Connection error: " + err.code + " - " + err.message);
 }
 
 function getStations() {
-  translateScreen("Bitte warten...", "Station in deiner Nähe wird abgefragt...\n\nBitte habe etwas Geduld.", "Please wait...", "Retrieving the timetable of a station near you. Please have patience.");
+  translateScreen(__("PLEASE_WAIT") + "...", __("STATION_NEAR_YOU") + " " +__("PLEASE_HAVE_PATIENCE"));
   scrollview.height = 150;
 }
 
@@ -72,8 +72,7 @@ messaging.peerSocket.onmessage = function(evt) {
     message_received = true;
     if(evt.data.error){
       if(evt.data.message=="no_location"){
-        translateScreen("Kein Standort", "Möglicherweise ist dein Standort auf deinem Smartphone deaktiviert oder nicht empfangbar.",
-                        "No location", "Perhaps the GPS on your smartphone is deactivated.");
+        translateScreen(__("NO_LOCATION"), __("NO_LOCATION_DESCRIPTION"));
 
       }else if (evt.data.message == "nothing_found") {
         translateScreen("Nichts gefunden", "Es wurden keine Stationen in deiner Nähe gefunden.",

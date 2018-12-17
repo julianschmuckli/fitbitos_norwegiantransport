@@ -2,4 +2,11 @@
   "LOADING": "Loading",
   "NEXT_STATION": "Next Station",
   "PREVIOUS_STATION": "Previous Station",
+  "FAILED_TRY_AGAIN": "Error. Please try again.",
+  "PLEASE_WAIT": "Please wait",
+  "STATION_NEAR_YOU": "Retrieving the timetable of a station near you.",
+  "PLEASE_HAVE_PATIENCE": "Please have patience.",
+  "NO_LOCATION": "No location",
+  "NO_LOCATION_DESCRIPTION": "Perhaps the GPS on your smartphone is deactivated.",
+  
 }
