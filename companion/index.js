@@ -29,15 +29,9 @@ function getStations(position) {
 
   console.log("Location: "+latitude+", "+longitude);
 
-  const body = {
-      method: 'GET',
-      headers: {
-          'X-MVG-Authorization-Key': '5af1beca494712ed38d313714d4caff6'
-      },
-  };
   var url = "https://api.entur.org/api/geocoder/1.1/reverse?point.lat="+latitude+"&point.lon="+longitude+"&lang=en&layers=venue";
   console.log("Loading data from "+url);
-  fetch(url, body).then(function (response) {
+  fetch(url).then(function (response) {
       response.text()
       .then(function(data) {
         var data = JSON.parse(data);
