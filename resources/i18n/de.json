@@ -8,5 +8,8 @@
   "PLEASE_HAVE_PATIENCE": "Bitte habe etwas Geduld.",
   "NO_LOCATION": "Kein Standort",
   "NO_LOCATION_DESCRIPTION": "Möglicherweise ist dein Standort auf deinem Smartphone deaktiviert oder nicht empfangbar.",
-  
+  "NOTHING_FOUND": "Nichts gefunden",
+  "NOTHING_FOUND_DESCRIPTION": "Es wurden keine Stationen in deiner Nähe gefunden.",
+  "NO_CONNECTION": "Keine Verbindung",
+  "NO_CONNECTION_DESCRIPTION": "Zurzeit kann keine Verbindung mit dem Smartphone hergestellt werden."
 }

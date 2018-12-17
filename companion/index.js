@@ -40,10 +40,8 @@ function getStations(position) {
   fetch(url, body).then(function (response) {
       response.text()
       .then(function(data) {
-        //console.log(data);
         var data = JSON.parse(data);
-        console.log(data);
-        if(data["features"] == []){
+        if(data["features"] == ""){
           sendResponse({error:true,message:"nothing_found"});
         }else{
           var searched_index = 0;
@@ -53,11 +51,15 @@ function getStations(position) {
             }
             if(data["features"][i]["properties"]["id"]!=undefined && searched_index >= index){
 
+              var date = new Date();
+              var iso_date = date.toISOString();
+
+              //2018-12-14T13:00:00+0200
               const query = `{
                 stopPlace(id: "` + data["features"][i]["properties"]["id"] + `") {
                   id
                   name
-                  estimatedCalls(startTime:"2018-12-14T13:00:00+0200" timeRange: 72100, numberOfDepartures: 10) {
+                  estimatedCalls(startTime:"` + iso_date + `" timeRange: 72100, numberOfDepartures: 10) {
                     realtime
                     aimedArrivalTime
                     aimedDepartureTime
@@ -88,6 +90,7 @@ function getStations(position) {
               }`;
 
               graphql.requestGraphQL('https://api.entur.org/journeyplanner/2.0/index/graphql', query, graphQLResponse, true);
+              break;
           }
         } //end for
       } //end if

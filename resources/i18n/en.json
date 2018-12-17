@@ -8,5 +8,8 @@
   "PLEASE_HAVE_PATIENCE": "Please have patience.",
   "NO_LOCATION": "No location",
   "NO_LOCATION_DESCRIPTION": "Perhaps the GPS on your smartphone is deactivated.",
-  
+  "NOTHING_FOUND": "Nothing found",
+  "NOTHING_FOUND_DESCRIPTION": "There is no station near you.",
+  "NO_CONNECTION": "No connection",
+  "NO_CONNECTION_DESCRIPTION": "It seems that you don't have a connection to your phone."
 }

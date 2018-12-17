@@ -75,8 +75,7 @@ messaging.peerSocket.onmessage = function(evt) {
         translateScreen(__("NO_LOCATION"), __("NO_LOCATION_DESCRIPTION"));
 
       }else if (evt.data.message == "nothing_found") {
-        translateScreen("Nichts gefunden", "Es wurden keine Stationen in deiner Nähe gefunden.",
-                        "No location", "Perhaps the GPS on your smartphone is deactivated.");
+        translateScreen(__("NOTHING_FOUND"), __("NOTHING_FOUND_DESCRIPTION"));
       }
 
       scrollview.height = 150;
@@ -258,8 +257,7 @@ function changeTimeDisplay(){
 
 setTimeout(function(){
   if(!message_received){
-    translateScreen("Keine Verbindung", "Zurzeit kann keine Verbindung mit dem Smartphone hergestellt werden.",
-                    "No connection", "It seems that you don't have a connection to your phone.");
+    translateScreen(__("NO_CONNECTION"), __("NO_CONNECTION_DESCRIPTION"));
 
     scrollview.height = 150;
     vibration.start("nudge-max");
